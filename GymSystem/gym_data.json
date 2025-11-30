@@ -1,0 +1,16 @@
+[
+  {
+    "Id": 1,
+    "Name": "Jos\u00E9 Manuel",
+    "LastName": "Mendez",
+    "Age": 24,
+    "Plan": "Basico"
+  },
+  {
+    "Id": 2,
+    "Name": "Jos\u00E9 Rafael",
+    "LastName": "Castillo Eve",
+    "Age": 20,
+    "Plan": "Premium"
+  }
+]

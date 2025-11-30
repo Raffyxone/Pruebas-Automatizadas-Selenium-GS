@@ -1,0 +1,60 @@
+@model GymSystem.Models.LoginViewModel
+@{ 
+    ViewData["Title"] = "Acceso Seguro"; 
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Gym Manager</title>
+    
+    <link rel="stylesheet" href="https://bootswatch.com/5/zephyr/bootstrap.min.css" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <link rel="stylesheet" href="/css/site.css" asp-append-version="true" />
+</head>
+<body class="login-bg">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="card card-hover shadow-lg">
+                    <div class="card-body p-5 text-center">
+                        <div class="mb-4 text-primary">
+                            <i class="fa-solid fa-dumbbell fa-4x"></i>
+                        </div>
+                        <h2 class="fw-bold mb-3">Bienvenido</h2>
+                        <p class="text-muted mb-4">Ingresa tus credenciales de administrador</p>
+                        
+                        <form asp-action="Login">
+                            <div asp-validation-summary="ModelOnly" class="alert alert-danger text-start"></div>
+                            
+                            <div class="form-floating mb-3">
+                                <input asp-for="Username" class="form-control" id="inputUser" placeholder="Usuario" />
+                                <label for="inputUser"><i class="fa-solid fa-user me-2"></i>Usuario</label>
+                                <span asp-validation-for="Username" class="text-danger small"></span>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input asp-for="Password" class="form-control" id="inputPass" type="password" placeholder="Contraseña" />
+                                <label for="inputPass"><i class="fa-solid fa-lock me-2"></i>Contraseña</label>
+                                <span asp-validation-for="Password" class="text-danger small"></span>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 btn-lg shadow-sm mt-3" id="btnLogin">
+                                INICIAR SESIÓN <i class="fa-solid fa-arrow-right ms-2"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="card-footer bg-light text-center py-3">
+                        <small class="text-muted">Sistema de Gestión v1.0</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

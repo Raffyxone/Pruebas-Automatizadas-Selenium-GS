@@ -1,0 +1,78 @@
+@model IEnumerable<GymSystem.Models.Client>
+@{ ViewData["Title"] = "Panel de Control"; }
+
+<div class="d-flex justify-content-between align-items-center mb-5">
+    <div>
+        <h1 class="display-6 fw-bold text-dark">Gestión de Clientes</h1>
+        <p class="text-muted">Administra las membresías activas del gimnasio.</p>
+    </div>
+    <a asp-action="Create" class="btn btn-success btn-lg shadow hover-scale" id="btnCrearNuevo">
+        <i class="fa-solid fa-user-plus me-2"></i> Nuevo Cliente
+    </a>
+</div>
+
+<div class="card card-hover shadow-lg border-0">
+    <div class="card-body p-0 overflow-hidden rounded">
+        <table class="table table-custom table-hover mb-0" id="tablaClientes">
+            <thead>
+                <tr>
+                    <th class="ps-4">CLIENTE</th>
+                    <th>EDAD</th>
+                    <th>MEMBRESÍA</th>
+                    <th class="text-end pe-4">ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="4" class="text-center py-5">
+                            <i class="fa-regular fa-folder-open fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">No hay clientes registrados aún.</p>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var item in Model) {
+                        <tr>
+                            <td class="ps-4 align-middle">
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-light rounded-circle p-2 me-3 text-primary">
+                                        <i class="fa-solid fa-user"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0 fw-bold">@item.Name @item.LastName</h6>
+                                        <small class="text-muted">ID: @item.Id</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="align-middle">@item.Age años</td>
+                            <td class="align-middle">
+                                @if(item.Plan == "Premium") {
+                                    <span class="badge bg-warning text-dark border border-warning">
+                                        <i class="fa-solid fa-crown me-1"></i> PREMIUM
+                                    </span>
+                                } else {
+                                    <span class="badge bg-info text-white">
+                                        <i class="fa-solid fa-star-half-stroke me-1"></i> BÁSICO
+                                    </span>
+                                }
+                            </td>
+                            <td class="text-end pe-4 align-middle">
+                                <div class="btn-group shadow-sm">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm btnEditar" title="Editar">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm btnEliminar" title="Eliminar">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

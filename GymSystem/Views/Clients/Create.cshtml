@@ -1,0 +1,51 @@
+@model GymSystem.Models.Client
+@{ ViewData["Title"] = "Registrar"; }
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card card-hover shadow-lg border-0">
+            <div class="card-header bg-success text-white py-3">
+                <h4 class="mb-0"><i class="fa-solid fa-user-plus me-2"></i> Registrar Nuevo Cliente</h4>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Create">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Nombre</label>
+                            <input asp-for="Name" class="form-control" id="inputNombre" placeholder="Ej. Juan" />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Apellido</label>
+                            <input asp-for="LastName" class="form-control" id="inputApellido" placeholder="Ej. Pérez" />
+                            <span asp-validation-for="LastName" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Edad</label>
+                            <input asp-for="Age" class="form-control" type="number" id="inputEdad" placeholder="Ej. 25" />
+                            <span asp-validation-for="Age" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Plan de Membresía</label>
+                            <select asp-for="Plan" class="form-select" id="selectPlan">
+                                <option value="Basico">Plan Básico (Gym)</option>
+                                <option value="Premium">Plan Premium (Gym + Spa)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="d-flex justify-content-end">
+                        <a asp-action="Index" class="btn btn-outline-secondary me-3">
+                            <i class="fa-solid fa-xmark me-1"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-success px-4 fw-bold shadow-sm" id="btnGuardar">
+                            <i class="fa-solid fa-save me-1"></i> GUARDAR CLIENTE
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Gym Manager Pro</title>
+    <link rel="stylesheet" href="https://bootswatch.com/5/zephyr/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-lg">
+            <div class="container">
+                <a class="navbar-brand fw-bold text-uppercase" asp-controller="Clients" asp-action="Index">
+                    <i class="fa-solid fa-dumbbell me-2"></i> Gym Manager <span class="badge bg-secondary">PRO</span>
+                </a>
+                
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="d-flex align-items-center">
+                        <span class="text-white me-3 d-none d-md-block">
+                            <i class="fa-solid fa-user-shield me-1"></i> Admin
+                        </span>
+                        <a class="btn btn-danger btn-sm fw-bold shadow-sm" asp-controller="Account" asp-action="Logout" id="btnLogout">
+                            <i class="fa-solid fa-right-from-bracket"></i> Salir
+                        </a>
+                    </div>
+                }
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mt-5 flex-grow-1">
+        <main role="main" class="pb-3 fade-in">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-auto">
+        <div class="container">
+            <small>&copy; José Rafael Castillo Eve 2024-1549</small>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

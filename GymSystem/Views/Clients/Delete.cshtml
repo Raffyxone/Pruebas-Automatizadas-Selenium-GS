@@ -1,0 +1,22 @@
+@model GymSystem.Models.Client
+@{ ViewData["Title"] = "Eliminar Cliente"; }
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <div class="card shadow border-0 border-top border-danger border-4">
+            <div class="card-body text-center p-5">
+                <h3 class="text-danger mb-4">¿Estás seguro?</h3>
+                <p class="lead">
+                    Estás a punto de eliminar al cliente <strong>@Model.Name @Model.LastName</strong>.
+                    <br>Esta acción no se puede deshacer.
+                </p>
+                
+                <form asp-action="Delete" class="mt-4">
+                    <input type="hidden" asp-for="Id" />
+                    <a asp-action="Index" class="btn btn-secondary me-2" id="btnCancelar">Cancelar</a>
+                    <button type="submit" class="btn btn-danger" id="btnConfirmarEliminar">Sí, Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
