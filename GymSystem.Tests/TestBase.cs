@@ -13,12 +13,25 @@ namespace GymSystem.Tests
         protected IWebDriver driver;
         protected static ExtentReports extent;
         protected ExtentTest test;
+        
+        private static string reportPath;
 
         [OneTimeSetUp]
         public void GlobalSetup()
         {
-            string path = Path.Combine(TestContext.CurrentContext.TestDirectory, "Reporte_Selenium.html");
-            var sparkReporter = new ExtentSparkReporter(path);
+            var binPath = TestContext.CurrentContext.TestDirectory;
+            
+            var projectPath = Directory.GetParent(binPath)!.Parent!.Parent!.FullName;
+            
+            reportPath = Path.Combine(projectPath, "Reportes");
+            
+            if (!Directory.Exists(reportPath))
+            {
+                Directory.CreateDirectory(reportPath);
+            }
+
+            string htmlFile = Path.Combine(reportPath, "Reporte_Selenium.html");
+            var sparkReporter = new ExtentSparkReporter(htmlFile);
             extent = new ExtentReports();
             extent.AttachReporter(sparkReporter);
         }
@@ -29,7 +42,6 @@ namespace GymSystem.Tests
             driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            
             test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
         }
 
@@ -40,7 +52,7 @@ namespace GymSystem.Tests
             {
                 var status = TestContext.CurrentContext.Result.Outcome.Status;
                 
-                string finalName = "Final_" + TestContext.CurrentContext.Test.Name;
+                string finalName = "test_case_" + TestContext.CurrentContext.Test.Name;
                 string screenshotPath = TakeScreenshot(finalName);
                 
                 if (status == NUnit.Framework.Interfaces.TestStatus.Failed)
@@ -78,7 +90,9 @@ namespace GymSystem.Tests
                 
                 string finalName = name + ".png";
                 
-                string path = Path.Combine(TestContext.CurrentContext.TestDirectory, finalName);
+                // Usamos la variable estática reportPath que definimos arriba
+                string path = Path.Combine(reportPath, finalName);
+                
                 screenshot.SaveAsFile(path);
                 return path;
             }
