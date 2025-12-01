@@ -40,16 +40,17 @@ namespace GymSystem.Tests
             {
                 var status = TestContext.CurrentContext.Result.Outcome.Status;
                 
-                string screenshotPath = TakeScreenshot("Final_" + TestContext.CurrentContext.Test.Name);
+                string finalName = "Final_" + TestContext.CurrentContext.Test.Name;
+                string screenshotPath = TakeScreenshot(finalName);
                 
                 if (status == NUnit.Framework.Interfaces.TestStatus.Failed)
                 {
-                    test.Fail("La prueba falló", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
+                    test.Fail("Fallo detectado", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
                     test.Fail(TestContext.CurrentContext.Result.Message);
                 }
                 else
                 {
-                    test.Pass("Prueba finalizada correctamente", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
+                    test.Pass("Prueba Exitosa", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
                 }
             }
             finally
@@ -74,7 +75,9 @@ namespace GymSystem.Tests
             {
                 ITakesScreenshot ts = (ITakesScreenshot)driver;
                 Screenshot screenshot = ts.GetScreenshot();
-                string finalName = name + "_" + DateTime.Now.ToString("HHmmss") + ".png";
+                
+                string finalName = name + ".png";
+                
                 string path = Path.Combine(TestContext.CurrentContext.TestDirectory, finalName);
                 screenshot.SaveAsFile(path);
                 return path;
@@ -85,10 +88,10 @@ namespace GymSystem.Tests
             }
         }
         
-        protected void AgregarFotoAlReporte(string descripcion)
+        protected void AgregarFotoAlReporte(string nombreExactoArchivo)
         {
-            string path = TakeScreenshot("Paso_" + descripcion);
-            test.Info(descripcion, MediaEntityBuilder.CreateScreenCaptureFromPath(path).Build());
+            string path = TakeScreenshot(nombreExactoArchivo);
+            test.Info("Evidencia: " + nombreExactoArchivo, MediaEntityBuilder.CreateScreenCaptureFromPath(path).Build());
         }
     }
 }

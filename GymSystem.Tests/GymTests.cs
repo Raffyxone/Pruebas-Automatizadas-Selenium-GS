@@ -21,13 +21,13 @@ namespace GymSystem.Tests
             driver.FindElement(By.Id("inputUser")).SendKeys("admin");
             driver.FindElement(By.Id("inputPass")).SendKeys("1234");
             
-            AgregarFotoAlReporte("DatosLlenos");
+            // FOTO 1: Login Correcto
+            AgregarFotoAlReporte("test_case_login_success");
+            
             driver.FindElement(By.Id("btnLogin")).Click();
-
             Thread.Sleep(2000); 
 
             Assert.That(driver.Title, Does.Contain("Clientes").Or.Contain("Panel"));
-            test.Info("Login correcto redirigió al Dashboard.");
         }
 
         [Test]
@@ -41,7 +41,8 @@ namespace GymSystem.Tests
             Thread.Sleep(2000);
 
             var errorMsg = driver.FindElement(By.ClassName("validation-summary-errors")).Text;
-            AgregarFotoAlReporte("ErrorVisible");
+            
+            AgregarFotoAlReporte("test_case_login_failed");
             
             Assert.That(errorMsg, Does.Contain("Credenciales inválidas"));
         }
@@ -60,14 +61,13 @@ namespace GymSystem.Tests
             driver.FindElement(By.Id("inputApellido")).SendKeys("Lento");
             driver.FindElement(By.Id("inputEdad")).SendKeys("25");
             
-            AgregarFotoAlReporte("FormularioLleno");
             driver.FindElement(By.Id("btnGuardar")).Click();
-
             Thread.Sleep(2000);
+
+            AgregarFotoAlReporte("test_case_create_success");
 
             Assert.That(driver.Url, Does.Contain("Index"));
             Assert.That(driver.PageSource, Does.Contain("Selenium"));
-            test.Info("Cliente creado y visible en la lista.");
         }
 
         [Test]
@@ -81,11 +81,11 @@ namespace GymSystem.Tests
             driver.FindElement(By.Id("inputEdad")).SendKeys("-10"); 
             
             driver.FindElement(By.Id("btnGuardar")).Click();
-
             Thread.Sleep(2000);
 
             bool hayError = driver.PageSource.Contains("La edad debe estar entre");
-            AgregarFotoAlReporte("ErrorEdad");
+            
+            AgregarFotoAlReporte("test_case_create_invalid_age");
             
             Assert.That(hayError, Is.True);
         }
@@ -99,7 +99,8 @@ namespace GymSystem.Tests
             Thread.Sleep(1500);
             
             var tabla = driver.FindElement(By.Id("tablaClientes"));
-            AgregarFotoAlReporte("TablaVisible");
+            
+            AgregarFotoAlReporte("test_case_read_list");
             
             Assert.That(tabla.Displayed, Is.True);
         }
@@ -118,9 +119,12 @@ namespace GymSystem.Tests
             inputNombre.Clear();
             inputNombre.SendKeys("EditadoVideo");
             
-            driver.FindElement(By.Id("btnGuardar")).Click();
+            AgregarFotoAlReporte("test_case_update_1_form");
 
+            driver.FindElement(By.Id("btnGuardar")).Click();
             Thread.Sleep(2000);
+
+            AgregarFotoAlReporte("test_case_update_2_result");
 
             Assert.That(driver.PageSource, Does.Contain("EditadoVideo"));
         }
@@ -134,11 +138,13 @@ namespace GymSystem.Tests
 
             driver.FindElement(By.CssSelector(".btnEliminar")).Click();
             Thread.Sleep(1500);
-            AgregarFotoAlReporte("PantallaConfirmacion");
+            
+            AgregarFotoAlReporte("test_case_delete_client_confirm");
 
             driver.FindElement(By.Id("btnConfirmarEliminar")).Click();
-
             Thread.Sleep(2000);
+
+            AgregarFotoAlReporte("test_case_delete_client_done");
 
             Assert.That(driver.Url, Does.Contain("Index"));
         }
